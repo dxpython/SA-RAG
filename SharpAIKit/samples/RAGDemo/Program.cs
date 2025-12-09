@@ -4,7 +4,7 @@ using SharpAIKit.RAG;
 Console.WriteLine("=== SharpAIKit RAG Demo (DeepSeek) ===\n");
 
 // Use DeepSeek API
-var client = LLMClientFactory.CreateDeepSeek("sk-e164311ef7914e46a5d760c505714b94");
+var client = LLMClientFactory.CreateDeepSeek("YOUR-API-KEY");
 
 // Create RAG Engine
 var rag = new RagEngine(client);
