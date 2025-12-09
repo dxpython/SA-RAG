@@ -8,7 +8,7 @@ Console.WriteLine("🚀 SharpAIKit Killer Features Demo (DeepSeek)\n");
 Console.WriteLine("=".PadRight(60, '='));
 
 // Use DeepSeek API
-var client = LLMClientFactory.CreateDeepSeek("sk-e164311ef7914e46a5d760c505714b94");
+var client = LLMClientFactory.CreateDeepSeek("YOUR-API-KEY");
 
 // ============================================================
 // 1. 🔮 Native C# Code Interpreter
