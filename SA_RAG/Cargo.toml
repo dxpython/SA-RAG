@@ -1,0 +1,37 @@
+[package]
+name = "sa_rag_core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+name = "sa_rag_core"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.21.0", features = ["extension-module"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+anyhow = "1.0"
+ndarray = "0.15"
+# For vector search - keeping hnsw_rs as optional, using custom implementation
+# hnsw_rs = "0.2"
+# For full text search components (if we build custom BM25) or use Tantivy
+# We will build a lightweight BM25 for this demo to keep it self-contained and flexible
+rust-stemmers = "1.2"
+# For hashing/ids:
+uuid = { version = "1.8", features = ["v4"] }
+regex = "1.10"
+log = "0.4"
+env_logger = "0.10"
+# For learning ranker
+rand = "0.8"
+# For feature store
+dashmap = "5.5"
+parking_lot = "0.12"
+# For execution graph
+petgraph = "0.6"
+
+[features]
+default = []

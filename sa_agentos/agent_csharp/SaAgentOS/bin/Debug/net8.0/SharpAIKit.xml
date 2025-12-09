@@ -1,0 +1,3772 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharpAIKit</name>
+    </assembly>
+    <members>
+        <member name="T:SharpAIKit.Agent.ReActAgent">
+            <summary>
+            ReAct (Reasoning + Acting) Agent implementation.
+            Uses a thought-action-observation loop for complex reasoning.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActAgent.MaxIterations">
+            <summary>
+            Gets or sets the maximum iterations.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActAgent.SystemPrompt">
+            <summary>
+            Gets or sets the system prompt.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ReActAgent.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new ReAct agent.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ReActAgent.AddTool(SharpAIKit.Agent.ToolBase)">
+            <summary>
+            Adds a tool to the agent.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ReActAgent.RunAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Runs the agent on a task.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.ReActResult">
+            <summary>
+            Result of a ReAct agent execution.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActResult.Answer">
+            <summary>Gets or sets the final answer.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActResult.Success">
+            <summary>Gets or sets whether execution was successful.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActResult.Steps">
+            <summary>Gets or sets the execution steps.</summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.ReActStep">
+            <summary>
+            A single step in ReAct execution.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActStep.Thought">
+            <summary>Gets or sets the thought.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActStep.Action">
+            <summary>Gets or sets the action (tool name).</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActStep.ActionInput">
+            <summary>Gets or sets the action input.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActStep.Observation">
+            <summary>Gets or sets the observation (tool result).</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActStep.FinalAnswer">
+            <summary>Gets or sets the final answer.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ReActStep.IsFinalAnswer">
+            <summary>Gets or sets whether this is the final step.</summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.PlanAndExecuteAgent">
+            <summary>
+            Plan-and-Execute Agent that creates a plan before executing.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.PlanAndExecuteAgent.PlanningPrompt">
+            <summary>
+            Gets or sets the planning prompt.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.PlanAndExecuteAgent.ExecutionPrompt">
+            <summary>
+            Gets or sets the execution prompt.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.PlanAndExecuteAgent.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new Plan-and-Execute agent.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.PlanAndExecuteAgent.AddTool(SharpAIKit.Agent.ToolBase)">
+            <summary>
+            Adds a tool to the agent.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.PlanAndExecuteAgent.RunAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Runs the agent on a task.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.PlanExecuteResult">
+            <summary>
+            Result of Plan-and-Execute agent.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.PlanExecuteResult.Task">
+            <summary>Gets or sets the original task.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.PlanExecuteResult.Plan">
+            <summary>Gets or sets the plan steps.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.PlanExecuteResult.StepResults">
+            <summary>Gets or sets the step results.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.PlanExecuteResult.Answer">
+            <summary>Gets or sets the final answer.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.PlanExecuteResult.Success">
+            <summary>Gets or sets whether execution was successful.</summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.MultiAgentSystem">
+            <summary>
+            Multi-Agent system for collaborative problem solving.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.MultiAgentSystem.CoordinatorPrompt">
+            <summary>
+            Gets or sets the coordinator prompt.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.MultiAgentSystem.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new multi-agent system.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.MultiAgentSystem.AddAgent(System.String,System.String,System.String)">
+            <summary>
+            Adds an agent to the system.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.MultiAgentSystem.RunAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Runs the multi-agent system on a task.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.MultiAgentResult">
+            <summary>
+            Result of multi-agent execution.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.MultiAgentResult.Task">
+            <summary>Gets or sets the original task.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.MultiAgentResult.Delegations">
+            <summary>Gets or sets the delegations.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.MultiAgentResult.AgentResponses">
+            <summary>Gets or sets the agent responses.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.MultiAgentResult.Answer">
+            <summary>Gets or sets the final answer.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.MultiAgentResult.Success">
+            <summary>Gets or sets whether execution was successful.</summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.AgentResponse">
+            <summary>
+            Response from a single agent.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentResponse.AgentName">
+            <summary>Gets or sets the agent name.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentResponse.Subtask">
+            <summary>Gets or sets the subtask.</summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentResponse.Response">
+            <summary>Gets or sets the response.</summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.AgentResult">
+            <summary>
+            Represents the result of an agent execution.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentResult.Answer">
+            <summary>
+            Gets or sets the final answer.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentResult.Steps">
+            <summary>
+            Gets or sets the execution steps.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentResult.Success">
+            <summary>
+            Gets or sets whether the execution was successful.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.AgentStep">
+            <summary>
+            Represents a single step in the agent's execution.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentStep.Type">
+            <summary>
+            Gets or sets the step type.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentStep.ToolName">
+            <summary>
+            Gets or sets the tool name (if applicable).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentStep.ToolArgs">
+            <summary>
+            Gets or sets the tool arguments (if applicable).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentStep.Result">
+            <summary>
+            Gets or sets the execution result.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AgentStep.Thought">
+            <summary>
+            Gets or sets the thought process.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.AiAgent">
+            <summary>
+            Lightweight AI Agent that supports tool calling and automatic planning.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AiAgent.MaxSteps">
+            <summary>
+            Gets or sets the maximum number of execution steps.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.AiAgent.SystemPrompt">
+            <summary>
+            Gets or sets the system prompt template.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new AI Agent instance.
+            </summary>
+            <param name="llmClient">The LLM client to use.</param>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.AddTool(SharpAIKit.Agent.ToolBase)">
+            <summary>
+            Adds a tool to the agent.
+            </summary>
+            <param name="tool">The tool instance.</param>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.AddTool(SharpAIKit.Agent.ToolDefinition)">
+            <summary>
+            Adds a tool definition to the agent.
+            </summary>
+            <param name="definition">The tool definition.</param>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.RunAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Runs the agent to complete a task.
+            </summary>
+            <param name="task">The task description.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>The execution result.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.RunAsync(System.String)">
+            <summary>
+            Runs the agent and returns only the answer.
+            </summary>
+            <param name="task">The task description.</param>
+            <returns>The final answer.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.BuildSystemPrompt">
+            <summary>
+            Builds the system prompt with tool descriptions.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.ParseAction(System.String)">
+            <summary>
+            Parses an LLM response into an agent step.
+            </summary>
+            <summary>
+            Parses an LLM response into an agent step.
+            Handles both JSON blocks and native tool calls (which come as JSON).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.ExtractJson(System.String)">
+            <summary>
+            Extracts JSON from a string, handling Markdown code blocks.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.AiAgent.ExecuteToolAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Executes a tool with the given arguments.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.CalculatorTool">
+            <summary>
+            Calculator tool providing basic mathematical operations.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.CalculatorTool.Calculate(System.String)">
+            <summary>
+            Evaluates a mathematical expression.
+            </summary>
+            <param name="expression">The mathematical expression to evaluate (e.g., '3 + 5 * 2').</param>
+            <returns>The calculation result.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.CalculatorTool.Power(System.Double,System.Double)">
+            <summary>
+            Calculates a power operation.
+            </summary>
+            <param name="baseNumber">The base number.</param>
+            <param name="exponent">The exponent.</param>
+            <returns>The result of base raised to the power of exponent.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.CalculatorTool.Sqrt(System.Double)">
+            <summary>
+            Calculates the square root of a number.
+            </summary>
+            <param name="number">The number to find the square root of.</param>
+            <returns>The square root result.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.CalculatorTool.EvaluateExpression(System.String)">
+            <summary>
+            Simple expression evaluator using DataTable.Compute.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.FileWriterTool">
+            <summary>
+            File operation tool providing file read/write capabilities.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.FileWriterTool.BaseDirectory">
+            <summary>
+            Gets or sets the base directory for file operations (security restriction).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.FileWriterTool.WriteFileAsync(System.String,System.String)">
+            <summary>
+            Writes content to a file.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <param name="content">The content to write.</param>
+            <returns>The operation result.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.FileWriterTool.ReadFileAsync(System.String)">
+            <summary>
+            Reads content from a file.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <returns>The file content.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.FileWriterTool.AppendFileAsync(System.String,System.String)">
+            <summary>
+            Appends content to a file.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <param name="content">The content to append.</param>
+            <returns>The operation result.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.FileWriterTool.ListDirectory(System.String)">
+            <summary>
+            Lists the contents of a directory.
+            </summary>
+            <param name="directoryPath">The directory path.</param>
+            <returns>The directory contents.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.FileWriterTool.GetSafePath(System.String)">
+            <summary>
+            Gets a safe path within the base directory.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.ToolAttribute">
+            <summary>
+            Attribute to mark a method as a tool.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolAttribute.Name">
+            <summary>
+            Gets or sets the tool name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolAttribute.Description">
+            <summary>
+            Gets or sets the tool description.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ToolAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new tool attribute.
+            </summary>
+            <param name="name">The tool name.</param>
+            <param name="description">The tool description.</param>
+        </member>
+        <member name="T:SharpAIKit.Agent.ParameterAttribute">
+            <summary>
+            Attribute to describe a parameter.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ParameterAttribute.Description">
+            <summary>
+            Gets or sets the parameter description.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ParameterAttribute.Required">
+            <summary>
+            Gets or sets whether the parameter is required.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ParameterAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new parameter attribute.
+            </summary>
+            <param name="description">The parameter description.</param>
+        </member>
+        <member name="T:SharpAIKit.Agent.ToolDefinition">
+            <summary>
+            Represents a tool definition.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolDefinition.Name">
+            <summary>
+            Gets or sets the tool name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolDefinition.Description">
+            <summary>
+            Gets or sets the tool description.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolDefinition.Parameters">
+            <summary>
+            Gets or sets the parameter definitions.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolDefinition.Execute">
+            <summary>
+            Gets or sets the execution function.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.ToolParameter">
+            <summary>
+            Represents a tool parameter definition.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolParameter.Name">
+            <summary>
+            Gets or sets the parameter name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolParameter.Type">
+            <summary>
+            Gets or sets the parameter type.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolParameter.Description">
+            <summary>
+            Gets or sets the parameter description.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Agent.ToolParameter.Required">
+            <summary>
+            Gets or sets whether the parameter is required.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.ToolBase">
+            <summary>
+            Base class for tools.
+            All custom tools should inherit from this class.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ToolBase.GetToolDefinitions">
+            <summary>
+            Gets the tool definitions by scanning methods with ToolAttribute.
+            </summary>
+            <returns>A list of tool definitions.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.ToolBase.InvokeMethod(System.Reflection.MethodInfo,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Invokes a method with the given arguments.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ToolBase.ConvertParameter(System.Object,System.Type)">
+            <summary>
+            Converts a parameter to the target type.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.ToolBase.GetJsonType(System.Type)">
+            <summary>
+            Gets the JSON type name for a .NET type.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Agent.WebSearchTool">
+            <summary>
+            Web search tool (mock implementation).
+            In production, connect to a real search API (Bing, Google, etc.).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Agent.WebSearchTool.SearchAsync(System.String)">
+            <summary>
+            Searches the web for information.
+            </summary>
+            <param name="query">The search query.</param>
+            <returns>Search results.</returns>
+        </member>
+        <member name="M:SharpAIKit.Agent.WebSearchTool.FetchUrlAsync(System.String)">
+            <summary>
+            Fetches content from a URL.
+            </summary>
+            <param name="url">The URL to fetch.</param>
+            <returns>The webpage content.</returns>
+        </member>
+        <member name="T:SharpAIKit.Callback.ConsoleCallbackHandler">
+            <summary>
+            Console callback handler that prints events to console.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ConsoleCallbackHandler.UseColors">
+            <summary>
+            Gets or sets whether to use colors.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ConsoleCallbackHandler.ShowTimestamps">
+            <summary>
+            Gets or sets whether to show timestamps.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.ConsoleCallbackHandler.OnLLMStartAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.ConsoleCallbackHandler.OnLLMEndAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.ConsoleCallbackHandler.OnLLMErrorAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.ConsoleCallbackHandler.OnChainStartAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.ConsoleCallbackHandler.OnChainEndAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.ConsoleCallbackHandler.OnAgentEventAsync(SharpAIKit.Callback.AgentEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Callback.LoggingCallbackHandler">
+            <summary>
+            Logging callback handler using Microsoft.Extensions.Logging.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.LoggingCallbackHandler.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates a new logging callback handler.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.LoggingCallbackHandler.OnLLMStartAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.LoggingCallbackHandler.OnLLMEndAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.LoggingCallbackHandler.OnLLMErrorAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.LoggingCallbackHandler.OnChainStartAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.LoggingCallbackHandler.OnChainEndAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.LoggingCallbackHandler.OnAgentEventAsync(SharpAIKit.Callback.AgentEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Callback.MetricsCallbackHandler">
+            <summary>
+            Metrics callback handler for collecting performance metrics.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsCallbackHandler.LLMCalls">
+            <summary>
+            Gets the total number of LLM calls.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsCallbackHandler.LLMErrors">
+            <summary>
+            Gets the total number of LLM errors.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsCallbackHandler.AverageLatencyMs">
+            <summary>
+            Gets the average latency in milliseconds.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsCallbackHandler.TotalTokens">
+            <summary>
+            Gets the total tokens used.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.MetricsCallbackHandler.GetModelCounts">
+            <summary>
+            Gets a snapshot of model usage counts.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.MetricsCallbackHandler.GetToolCounts">
+            <summary>
+            Gets a snapshot of tool usage counts.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.MetricsCallbackHandler.OnLLMEndAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.MetricsCallbackHandler.OnLLMErrorAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.MetricsCallbackHandler.OnAgentEventAsync(SharpAIKit.Callback.AgentEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.MetricsCallbackHandler.Reset">
+            <summary>
+            Resets all metrics.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.MetricsCallbackHandler.GetSummary">
+            <summary>
+            Gets a summary of all metrics.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.MetricsSummary">
+            <summary>
+            Summary of collected metrics.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsSummary.LLMCalls">
+            <summary>Total LLM calls.</summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsSummary.LLMErrors">
+            <summary>Total LLM errors.</summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsSummary.AverageLatencyMs">
+            <summary>Average latency in ms.</summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsSummary.TotalTokens">
+            <summary>Total tokens used.</summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsSummary.ModelCounts">
+            <summary>Calls per model.</summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.MetricsSummary.ToolCounts">
+            <summary>Calls per tool.</summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.FileCallbackHandler">
+            <summary>
+            File-based callback handler for persistent logging.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a new file callback handler.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.OnLLMStartAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.OnLLMEndAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.OnLLMErrorAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.OnChainStartAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.OnChainEndAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.OnAgentEventAsync(SharpAIKit.Callback.AgentEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.FileCallbackHandler.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Callback.TracingContext">
+            <summary>
+            Tracing context for distributed tracing support.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TracingContext.Current">
+            <summary>
+            Gets or sets the current tracing context.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TracingContext.TraceId">
+            <summary>
+            Gets the trace ID.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TracingContext.ParentSpanId">
+            <summary>
+            Gets or sets the parent span ID.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TracingContext.SpanId">
+            <summary>
+            Gets the current span ID.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TracingContext.Tags">
+            <summary>
+            Gets the tags.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.TracingContext.CreateChild">
+            <summary>
+            Creates a child context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.TracingContext.StartTrace">
+            <summary>
+            Starts a new trace.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.LLMEvent">
+            <summary>
+            Event data for LLM operations.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.Timestamp">
+            <summary>
+            Gets or sets the event timestamp.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.RunId">
+            <summary>
+            Gets or sets the run ID.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.ParentRunId">
+            <summary>
+            Gets or sets the parent run ID.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.Model">
+            <summary>
+            Gets or sets the model name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.Messages">
+            <summary>
+            Gets or sets the input messages.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.Output">
+            <summary>
+            Gets or sets the output text.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.Usage">
+            <summary>
+            Gets or sets token usage information.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.LatencyMs">
+            <summary>
+            Gets or sets the latency in milliseconds.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.Error">
+            <summary>
+            Gets or sets any error that occurred.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.LLMEvent.Metadata">
+            <summary>
+            Gets or sets additional metadata.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.TokenUsage">
+            <summary>
+            Token usage information.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TokenUsage.PromptTokens">
+            <summary>
+            Gets or sets the prompt token count.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TokenUsage.CompletionTokens">
+            <summary>
+            Gets or sets the completion token count.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.TokenUsage.TotalTokens">
+            <summary>
+            Gets the total token count.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.ChainEvent">
+            <summary>
+            Event data for chain operations.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ChainEvent.Timestamp">
+            <summary>
+            Gets or sets the event timestamp.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ChainEvent.RunId">
+            <summary>
+            Gets or sets the run ID.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ChainEvent.ChainName">
+            <summary>
+            Gets or sets the chain name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ChainEvent.Input">
+            <summary>
+            Gets or sets the input.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ChainEvent.Output">
+            <summary>
+            Gets or sets the output.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ChainEvent.LatencyMs">
+            <summary>
+            Gets or sets the latency in milliseconds.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.ChainEvent.Error">
+            <summary>
+            Gets or sets any error.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.AgentEvent">
+            <summary>
+            Event data for agent operations.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.Timestamp">
+            <summary>
+            Gets or sets the event timestamp.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.RunId">
+            <summary>
+            Gets or sets the run ID.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.Type">
+            <summary>
+            Gets or sets the event type.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.Thought">
+            <summary>
+            Gets or sets the thought/reasoning.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.ToolName">
+            <summary>
+            Gets or sets the tool name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.ToolInput">
+            <summary>
+            Gets or sets the tool input.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.ToolOutput">
+            <summary>
+            Gets or sets the tool output.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Callback.AgentEvent.FinalAnswer">
+            <summary>
+            Gets or sets the final answer.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.AgentEventType">
+            <summary>
+            Types of agent events.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.Callback.AgentEventType.Thinking">
+            <summary>Agent started thinking.</summary>
+        </member>
+        <member name="F:SharpAIKit.Callback.AgentEventType.ToolStart">
+            <summary>Agent is calling a tool.</summary>
+        </member>
+        <member name="F:SharpAIKit.Callback.AgentEventType.ToolEnd">
+            <summary>Tool execution completed.</summary>
+        </member>
+        <member name="F:SharpAIKit.Callback.AgentEventType.FinalAnswer">
+            <summary>Agent produced final answer.</summary>
+        </member>
+        <member name="F:SharpAIKit.Callback.AgentEventType.Error">
+            <summary>An error occurred.</summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.ICallbackHandler">
+            <summary>
+            Interface for callback handlers.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.ICallbackHandler.OnLLMStartAsync(SharpAIKit.Callback.LLMEvent)">
+            <summary>
+            Called when an LLM call starts.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.ICallbackHandler.OnLLMEndAsync(SharpAIKit.Callback.LLMEvent)">
+            <summary>
+            Called when an LLM call ends.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.ICallbackHandler.OnLLMErrorAsync(SharpAIKit.Callback.LLMEvent)">
+            <summary>
+            Called when an LLM call errors.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.ICallbackHandler.OnChainStartAsync(SharpAIKit.Callback.ChainEvent)">
+            <summary>
+            Called when a chain starts.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.ICallbackHandler.OnChainEndAsync(SharpAIKit.Callback.ChainEvent)">
+            <summary>
+            Called when a chain ends.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.ICallbackHandler.OnAgentEventAsync(SharpAIKit.Callback.AgentEvent)">
+            <summary>
+            Called for agent events.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Callback.CallbackHandlerBase">
+            <summary>
+            Base implementation of callback handler with empty methods.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackHandlerBase.OnLLMStartAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackHandlerBase.OnLLMEndAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackHandlerBase.OnLLMErrorAsync(SharpAIKit.Callback.LLMEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackHandlerBase.OnChainStartAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackHandlerBase.OnChainEndAsync(SharpAIKit.Callback.ChainEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackHandlerBase.OnAgentEventAsync(SharpAIKit.Callback.AgentEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Callback.CallbackManager">
+            <summary>
+            Manages multiple callback handlers.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.AddHandler(SharpAIKit.Callback.ICallbackHandler)">
+            <summary>
+            Adds a callback handler.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.RemoveHandler(SharpAIKit.Callback.ICallbackHandler)">
+            <summary>
+            Removes a callback handler.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.OnLLMStartAsync(SharpAIKit.Callback.LLMEvent)">
+            <summary>
+            Notifies all handlers of an LLM start event.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.OnLLMEndAsync(SharpAIKit.Callback.LLMEvent)">
+            <summary>
+            Notifies all handlers of an LLM end event.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.OnLLMErrorAsync(SharpAIKit.Callback.LLMEvent)">
+            <summary>
+            Notifies all handlers of an LLM error event.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.OnChainStartAsync(SharpAIKit.Callback.ChainEvent)">
+            <summary>
+            Notifies all handlers of a chain start event.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.OnChainEndAsync(SharpAIKit.Callback.ChainEvent)">
+            <summary>
+            Notifies all handlers of a chain end event.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Callback.CallbackManager.OnAgentEventAsync(SharpAIKit.Callback.AgentEvent)">
+            <summary>
+            Notifies all handlers of an agent event.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.ChainBase">
+            <summary>
+            Base class for all chain implementations.
+            Provides common functionality and operator overloading for composition.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainBase.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <summary>
+            Override this to implement the chain logic.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainBase.InvokeAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainBase.InvokeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainBase.StreamAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainBase.op_BitwiseOr(SharpAIKit.Chain.ChainBase,SharpAIKit.Chain.IChain)">
+            <summary>
+            Enables LCEL-style composition: chain1 | chain2
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.PipelineChain">
+            <summary>
+            A chain that pipes output from one chain to another.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.MapChain">
+            <summary>
+            A chain that transforms the context.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.FilterChain">
+            <summary>
+            A chain that filters based on a condition.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.ParallelChain">
+            <summary>
+            A chain that runs multiple chains in parallel.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.BranchChain">
+            <summary>
+            A chain that branches based on a condition.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.LambdaChain">
+            <summary>
+            A simple pass-through chain that applies a function.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.LambdaChain.From(System.Func{System.String,System.String})">
+            <summary>
+            Creates a lambda chain from a simple string transformation.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.LambdaChain.From(System.Func{System.String,System.Threading.Tasks.Task{System.String}})">
+            <summary>
+            Creates a lambda chain from an async string transformation.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.ChainContext">
+            <summary>
+            Represents the execution context passed through a chain.
+            This is the core data structure that flows through chain components.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.ChainContext.Item(System.String)">
+            <summary>
+            Gets or sets a value by key.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainContext.Get``1(System.String)">
+            <summary>
+            Gets a typed value from the context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainContext.Set(System.String,System.Object)">
+            <summary>
+            Sets a value in the context.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.ChainContext.Input">
+            <summary>
+            Gets or sets the primary input text.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.ChainContext.Output">
+            <summary>
+            Gets or sets the primary output text.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.ChainContext.Keys">
+            <summary>
+            Gets all keys in the context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainContext.Clone">
+            <summary>
+            Creates a copy of this context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainContext.FromDictionary(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates a new context from a dictionary.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainContext.FromInput(System.String)">
+            <summary>
+            Creates a new context with just an input string.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.IChain">
+            <summary>
+            Base interface for all chain components.
+            Chains can be composed using the | operator (like LCEL in LangChain).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.IChain.InvokeAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <summary>
+            Executes the chain with the given context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.IChain.InvokeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes the chain with a simple string input.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.IChain.StreamAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <summary>
+            Streams the chain execution, yielding partial results.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.ChainExtensions">
+            <summary>
+            Extension methods for chain composition.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainExtensions.Pipe(SharpAIKit.Chain.IChain,SharpAIKit.Chain.IChain)">
+            <summary>
+            Pipes the output of this chain to another chain.
+            This enables LCEL-style composition: chain1 | chain2 | chain3
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainExtensions.Map(SharpAIKit.Chain.IChain,System.Func{SharpAIKit.Chain.ChainContext,SharpAIKit.Chain.ChainContext})">
+            <summary>
+            Maps the output using a transformation function.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainExtensions.Where(SharpAIKit.Chain.IChain,System.Func{SharpAIKit.Chain.ChainContext,System.Boolean})">
+            <summary>
+            Filters the context based on a predicate.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainExtensions.Parallel(SharpAIKit.Chain.IChain[])">
+            <summary>
+            Runs multiple chains in parallel and aggregates results.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ChainExtensions.Branch(SharpAIKit.Chain.IChain,System.Func{SharpAIKit.Chain.ChainContext,System.Boolean},SharpAIKit.Chain.IChain,SharpAIKit.Chain.IChain)">
+            <summary>
+            Creates a branch based on a condition.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Chain.LLMChain">
+            <summary>
+            A chain that invokes an LLM for generation.
+            This is the core building block for LLM-powered chains.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.LLMChain.InputKey">
+            <summary>
+            Gets or sets the input key to read from context.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.LLMChain.OutputKey">
+            <summary>
+            Gets or sets the output key to write to context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.LLMChain.#ctor(SharpAIKit.LLM.ILLMClient,System.String,SharpAIKit.LLM.ChatOptions)">
+            <summary>
+            Creates a new LLM chain.
+            </summary>
+            <param name="client">The LLM client to use.</param>
+            <param name="systemPrompt">Optional system prompt.</param>
+            <param name="options">Optional chat options.</param>
+        </member>
+        <member name="M:SharpAIKit.Chain.LLMChain.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Chain.LLMChain.StreamAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Chain.EmbeddingChain">
+            <summary>
+            A chain that generates embeddings for text.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.EmbeddingChain.InputKey">
+            <summary>
+            Gets or sets the input key to read from context.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.EmbeddingChain.OutputKey">
+            <summary>
+            Gets or sets the output key for the embedding.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.EmbeddingChain.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new embedding chain.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.EmbeddingChain.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Chain.ConversationChain">
+            <summary>
+            A chain for conversational interactions with memory support.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.ConversationChain.MaxHistoryLength">
+            <summary>
+            Gets or sets the maximum number of messages to keep in history.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ConversationChain.#ctor(SharpAIKit.LLM.ILLMClient,System.String)">
+            <summary>
+            Creates a new conversation chain.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Chain.ConversationChain.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Chain.ConversationChain.ClearHistory">
+            <summary>
+            Clears the conversation history.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Chain.ConversationChain.History">
+            <summary>
+            Gets the current conversation history.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.CodeInterpreter.CodeExecutionResult">
+            <summary>
+            Result of code execution.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.CodeExecutionResult.Success">
+            <summary>
+            Gets or sets whether execution was successful.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.CodeExecutionResult.Output">
+            <summary>
+            Gets or sets the output text.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.CodeExecutionResult.Error">
+            <summary>
+            Gets or sets the error message if execution failed.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.CodeExecutionResult.ExecutionTimeMs">
+            <summary>
+            Gets or sets the execution time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.CodeExecutionResult.Variables">
+            <summary>
+            Gets or sets any variables that were set during execution.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.CodeInterpreter.ICodeInterpreter">
+            <summary>
+            Interface for code interpreters that can execute C# code.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.ICodeInterpreter.ExecuteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes C# code and returns the result.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.ICodeInterpreter.ExecuteAsync``1(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes code with a specific return type.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.ICodeInterpreter.Reset">
+            <summary>
+            Resets the execution context (clears variables).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.ICodeInterpreter.GetVariable``1(System.String)">
+            <summary>
+            Gets a variable from the execution context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.ICodeInterpreter.SetVariable(System.String,System.Object)">
+            <summary>
+            Sets a variable in the execution context.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter">
+            <summary>
+            Native C# code interpreter using Roslyn scripting engine.
+            This allows agents to write and execute C# code directly, without needing Python or external interpreters.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.MaxExecutionTimeMs">
+            <summary>
+            Gets or sets the maximum execution time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.AllowUnsafe">
+            <summary>
+            Gets or sets whether to allow unsafe code.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.AllowFileSystemAccess">
+            <summary>
+            Gets or sets whether to allow file system access.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.AllowNetworkAccess">
+            <summary>
+            Gets or sets whether to allow network access.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.#ctor">
+            <summary>
+            Creates a new Roslyn code interpreter.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.ExecuteAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.ExecuteAsync``1(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.GetVariable``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.RoslynCodeInterpreter.SetVariable(System.String,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.CodeInterpreter.CodeInterpreterHelpers">
+            <summary>
+            Helper class for common code interpreter operations.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.CodeInterpreterHelpers.CreateMathExpression(System.String)">
+            <summary>
+            Creates a code snippet to calculate a mathematical expression.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.CodeInterpreterHelpers.CreateListProcessing(System.String,System.String)">
+            <summary>
+            Creates a code snippet to process a list.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.CodeInterpreterHelpers.CreateCsvProcessing(System.String,System.String)">
+            <summary>
+            Creates a code snippet to read and process a CSV file.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.CodeInterpreter.CodeInterpreterHelpers.CreateDataAnalysis(System.String,System.String)">
+            <summary>
+            Creates a code snippet for data analysis.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Common.ChatMessage">
+            <summary>
+            Represents a chat message in a conversation.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.ChatMessage.Role">
+            <summary>
+            Gets or sets the role of the message sender (system, user, assistant).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.ChatMessage.Content">
+            <summary>
+            Gets or sets the content of the message.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Common.ChatMessage.User(System.String)">
+            <summary>
+            Creates a user message.
+            </summary>
+            <param name="content">The message content.</param>
+            <returns>A new ChatMessage with role "user".</returns>
+        </member>
+        <member name="M:SharpAIKit.Common.ChatMessage.Assistant(System.String)">
+            <summary>
+            Creates an assistant message.
+            </summary>
+            <param name="content">The message content.</param>
+            <returns>A new ChatMessage with role "assistant".</returns>
+        </member>
+        <member name="M:SharpAIKit.Common.ChatMessage.System(System.String)">
+            <summary>
+            Creates a system message.
+            </summary>
+            <param name="content">The message content.</param>
+            <returns>A new ChatMessage with role "system".</returns>
+        </member>
+        <member name="T:SharpAIKit.Common.JsonHelper">
+            <summary>
+            Helper class for JSON serialization and deserialization.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.Common.JsonHelper.DefaultOptions">
+            <summary>
+            Default JSON serializer options.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Common.JsonHelper.Serialize``1(``0)">
+            <summary>
+            Serializes an object to a JSON string.
+            </summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="obj">The object to serialize.</param>
+            <returns>A JSON string representation of the object.</returns>
+        </member>
+        <member name="M:SharpAIKit.Common.JsonHelper.Deserialize``1(System.String)">
+            <summary>
+            Deserializes a JSON string to an object.
+            </summary>
+            <typeparam name="T">The type of object to deserialize to.</typeparam>
+            <param name="json">The JSON string to deserialize.</param>
+            <returns>The deserialized object, or null if deserialization fails.</returns>
+        </member>
+        <member name="M:SharpAIKit.Common.JsonHelper.TryDeserialize``1(System.String)">
+            <summary>
+            Attempts to deserialize a JSON string, returning default on failure.
+            </summary>
+            <typeparam name="T">The type of object to deserialize to.</typeparam>
+            <param name="json">The JSON string to deserialize.</param>
+            <returns>The deserialized object, or default(T) if deserialization fails.</returns>
+        </member>
+        <member name="T:SharpAIKit.Common.LLMOptions">
+            <summary>
+            Configuration options for LLM clients.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.LLMOptions.BaseUrl">
+            <summary>
+            Gets or sets the base URL for the API endpoint.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.LLMOptions.ApiKey">
+            <summary>
+            Gets or sets the API key (required for OpenAI, optional for Ollama/LM Studio).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.LLMOptions.Model">
+            <summary>
+            Gets or sets the model name to use.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.LLMOptions.TimeoutSeconds">
+            <summary>
+            Gets or sets the request timeout in seconds.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.LLMOptions.MaxRetries">
+            <summary>
+            Gets or sets the maximum number of retry attempts.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.LLMOptions.Temperature">
+            <summary>
+            Gets or sets the temperature parameter (0-2).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Common.LLMOptions.MaxTokens">
+            <summary>
+            Gets or sets the maximum number of tokens to generate.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Common.LLMProviderType">
+            <summary>
+            Enumeration of supported LLM provider types.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.Common.LLMProviderType.OpenAI">
+            <summary>
+            OpenAI-compatible API.
+            Works with: OpenAI, DeepSeek, Qwen, Mistral, Yi, Groq, LM Studio, and any other OpenAI-compatible service.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.Common.LLMProviderType.Ollama">
+            <summary>
+            Ollama local service.
+            Supports: Llama, Qwen, Phi, Mistral, Gemma, DeepSeek, Yi, etc.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.Document">
+            <summary>
+            Represents a loaded document with content and metadata.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.Document.Content">
+            <summary>
+            Gets or sets the document content.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.Document.Metadata">
+            <summary>
+            Gets or sets the document metadata.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.Document.FromContent(System.String)">
+            <summary>
+            Creates a document with content only.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.Document.FromContent(System.String,System.String)">
+            <summary>
+            Creates a document with content and source.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.IDocumentLoader">
+            <summary>
+            Interface for document loaders.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.IDocumentLoader.LoadAsync(System.Threading.CancellationToken)">
+            <summary>
+            Loads documents from a source.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.IDocumentLoader.LazyLoadAsync(System.Threading.CancellationToken)">
+            <summary>
+            Lazily loads documents one at a time.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.FileLoaderBase">
+            <summary>
+            Base class for file-based document loaders.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.FileLoaderBase.FilePath">
+            <summary>
+            Gets the file path.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.FileLoaderBase.#ctor(System.String)">
+            <summary>
+            Creates a new file loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.FileLoaderBase.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.FileLoaderBase.LazyLoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.FileLoaderBase.CreateBaseMetadata">
+            <summary>
+            Creates base metadata for the file.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.DirectoryLoaderBase">
+            <summary>
+            Base class for directory loaders.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.DirectoryLoaderBase.DirectoryPath">
+            <summary>
+            Gets the directory path.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.DirectoryLoaderBase.SearchPattern">
+            <summary>
+            Gets the search pattern.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.DirectoryLoaderBase.Recursive">
+            <summary>
+            Gets whether to search recursively.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.DirectoryLoaderBase.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a new directory loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.DirectoryLoaderBase.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.DirectoryLoaderBase.LazyLoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.DirectoryLoaderBase.GetFiles">
+            <summary>
+            Gets all files matching the pattern.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.TextFileLoader">
+            <summary>
+            Loads plain text files.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.TextFileLoader.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+            Creates a new text file loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.TextFileLoader.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.TextDirectoryLoader">
+            <summary>
+            Loads all text files from a directory.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.TextDirectoryLoader.#ctor(System.String,System.String,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Creates a new text directory loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.TextDirectoryLoader.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.TextDirectoryLoader.LazyLoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.CsvLoader">
+            <summary>
+            Loads CSV files with column awareness.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.CsvLoader.OneDocumentPerRow">
+            <summary>
+            Gets or sets whether to create one document per row.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.CsvLoader.ContentColumns">
+            <summary>
+            Gets or sets the content column(s) to use (null = all columns).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.CsvLoader.MetadataColumns">
+            <summary>
+            Gets or sets the metadata columns.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.CsvLoader.#ctor(System.String,System.Char,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Creates a new CSV loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.CsvLoader.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.MarkdownLoader">
+            <summary>
+            Loads Markdown files with optional section splitting.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.MarkdownLoader.SplitByHeaders">
+            <summary>
+            Gets or sets whether to split by headers.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.MarkdownLoader.SplitHeaderLevel">
+            <summary>
+            Gets or sets the minimum header level to split on (1-6).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.MarkdownLoader.#ctor(System.String)">
+            <summary>
+            Creates a new Markdown loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.MarkdownLoader.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.JsonLoader">
+            <summary>
+            Loads JSON files.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.JsonLoader.ContentPath">
+            <summary>
+            Gets or sets the JSON path to extract content from.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.DocumentLoader.JsonLoader.PrettyPrint">
+            <summary>
+            Gets or sets whether to pretty-print the JSON.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.JsonLoader.#ctor(System.String)">
+            <summary>
+            Creates a new JSON loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.JsonLoader.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.DocumentLoader.WebLoader">
+            <summary>
+            Loads content from a URL.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.WebLoader.#ctor(System.String,System.Net.Http.HttpClient)">
+            <summary>
+            Creates a new web loader.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.WebLoader.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.DocumentLoader.WebLoader.LazyLoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Graph.GraphState">
+            <summary>
+            Represents a state in the graph.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphState.Data">
+            <summary>
+            Gets or sets the state data.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphState.CurrentNode">
+            <summary>
+            Gets or sets the current node name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphState.NextNode">
+            <summary>
+            Gets or sets the next node to transition to.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphState.ShouldEnd">
+            <summary>
+            Gets or sets whether execution should end.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphState.Output">
+            <summary>
+            Gets or sets the final output.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.GraphState.Get``1(System.String)">
+            <summary>
+            Gets a typed value from the state.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.GraphState.Set(System.String,System.Object)">
+            <summary>
+            Sets a value in the state.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Graph.GraphNode">
+            <summary>
+            Represents a node in the graph.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphNode.Name">
+            <summary>
+            Gets or sets the node name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphNode.Description">
+            <summary>
+            Gets or sets the node description.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphNode.Action">
+            <summary>
+            Gets or sets the action to execute when entering this node.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphNode.Condition">
+            <summary>
+            Gets or sets the condition function to determine the next node.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphNode.Edges">
+            <summary>
+            Gets or sets the edges (transitions) from this node.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Graph.GraphEdge">
+            <summary>
+            Represents an edge (transition) between nodes.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphEdge.Target">
+            <summary>
+            Gets or sets the target node name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphEdge.Condition">
+            <summary>
+            Gets or sets the condition function (returns true if this edge should be taken).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.GraphEdge.Label">
+            <summary>
+            Gets or sets the edge label/description.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Graph.SharpGraph">
+            <summary>
+            SharpGraph - A graph-based agent orchestration engine using Finite State Machine (FSM).
+            Supports loops, conditional branches, and complex workflows that LangChain's linear chains cannot handle.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Graph.SharpGraph.MaxIterations">
+            <summary>
+            Gets or sets the maximum number of iterations to prevent infinite loops.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraph.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a new SharpGraph.
+            </summary>
+            <param name="entryNode">The name of the entry node.</param>
+            <param name="maxIterations">Maximum iterations to prevent infinite loops.</param>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraph.AddNode(System.String,System.Func{SharpAIKit.Graph.GraphState,System.Threading.Tasks.Task{SharpAIKit.Graph.GraphState}},System.String)">
+            <summary>
+            Adds a node to the graph.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraph.AddNode(System.String,System.Func{SharpAIKit.Graph.GraphState,System.Threading.Tasks.Task{SharpAIKit.Graph.GraphState}},System.Func{SharpAIKit.Graph.GraphState,System.String},System.String)">
+            <summary>
+            Adds a node with a condition function.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraph.AddEdge(System.String,System.String,System.Func{SharpAIKit.Graph.GraphState,System.Boolean},System.String)">
+            <summary>
+            Adds an edge (transition) between nodes.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraph.AddDefaultEdge(System.String,System.String,System.String)">
+            <summary>
+            Adds a default edge (taken when no other conditions match).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraph.ExecuteAsync(SharpAIKit.Graph.GraphState,System.Threading.CancellationToken)">
+            <summary>
+            Executes the graph starting from the entry node.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraph.GetGraphViz">
+            <summary>
+            Gets a visual representation of the graph (for debugging).
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Graph.SharpGraphBuilder">
+            <summary>
+            Builder for creating SharpGraph instances fluently.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraphBuilder.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a new graph builder.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraphBuilder.Node(System.String,System.Func{SharpAIKit.Graph.GraphState,System.Threading.Tasks.Task{SharpAIKit.Graph.GraphState}},System.String)">
+            <summary>
+            Adds a node.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraphBuilder.Node(System.String,System.Func{SharpAIKit.Graph.GraphState,System.Threading.Tasks.Task{SharpAIKit.Graph.GraphState}},System.Func{SharpAIKit.Graph.GraphState,System.String},System.String)">
+            <summary>
+            Adds a node with condition.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraphBuilder.Edge(System.String,System.String,System.Func{SharpAIKit.Graph.GraphState,System.Boolean},System.String)">
+            <summary>
+            Adds an edge.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraphBuilder.DefaultEdge(System.String,System.String,System.String)">
+            <summary>
+            Adds a default edge.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Graph.SharpGraphBuilder.Build">
+            <summary>
+            Builds the graph.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.LLM.BaseLLMClient">
+            <summary>
+            Base class for LLM clients.
+            Provides common HTTP request and retry logic.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.LLM.BaseLLMClient.HttpClient">
+            <summary>
+            The HTTP client instance.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.LLM.BaseLLMClient.Options">
+            <summary>
+            The configuration options.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.LLM.BaseLLMClient.Logger">
+            <summary>
+            The logger instance.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.LLM.BaseLLMClient._disposed">
+            <summary>
+            Whether the client has been disposed.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.#ctor(System.Net.Http.HttpClient,SharpAIKit.Common.LLMOptions,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the BaseLLMClient.
+            </summary>
+            <param name="httpClient">The HTTP client to use.</param>
+            <param name="options">The configuration options.</param>
+            <summary>
+            Initializes a new instance of the BaseLLMClient.
+            </summary>
+            <param name="httpClient">The HTTP client to use.</param>
+            <param name="options">The configuration options.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.ChatAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.ChatStreamAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.EmbeddingAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.EmbeddingBatchAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.PostAsync(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            Sends a POST request and returns the response body.
+            </summary>
+            <param name="endpoint">The API endpoint.</param>
+            <param name="payload">The request payload.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>The response body as a string.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.PostStreamAsync(System.String,System.Object,System.Func{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Sends a streaming POST request and yields response chunks.
+            </summary>
+            <param name="endpoint">The API endpoint.</param>
+            <param name="payload">The request payload.</param>
+            <param name="parseChunk">Function to parse each chunk.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>An async enumerable of response chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.Dispose">
+            <summary>
+            Releases all resources used by the client.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.BaseLLMClient.Dispose(System.Boolean)">
+            <summary>
+            Releases the unmanaged resources and optionally releases the managed resources.
+            </summary>
+            <param name="disposing">true to release both managed and unmanaged resources.</param>
+        </member>
+        <member name="T:SharpAIKit.LLM.ChatOptions">
+            <summary>
+            Options for chat completion requests.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ChatOptions.Model">
+            <summary>
+            The model name to use (overrides the client default).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ChatOptions.Temperature">
+            <summary>
+            The sampling temperature (0.0 to 2.0).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ChatOptions.MaxTokens">
+            <summary>
+            The maximum number of tokens to generate.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ChatOptions.Tools">
+            <summary>
+            The list of tools available to the model.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ChatOptions.ToolChoice">
+            <summary>
+            Controls which (if any) tool is called by the model.
+            "auto" means the model can pick between generating a message or calling a tool.
+            "none" means the model will not call a tool and instead generates a message.
+            "required" means the model must call a tool.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ChatOptions.JsonMode">
+            <summary>
+            Whether to enforce JSON output.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ChatOptions.AdditionalParameters">
+            <summary>
+            Additional parameters to pass to the API.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.LLM.ToolDefinition">
+            <summary>
+            Definition of a tool that the model can call.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ToolDefinition.Type">
+            <summary>
+            The type of the tool. Currently only "function" is supported.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.ToolDefinition.Function">
+            <summary>
+            The function definition.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.LLM.FunctionDefinition">
+            <summary>
+            Definition of a function that the model can call.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.FunctionDefinition.Name">
+            <summary>
+            The name of the function to be called.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.FunctionDefinition.Description">
+            <summary>
+            A description of what the function does.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.LLM.FunctionDefinition.Parameters">
+            <summary>
+            The parameters the functions accepts, described as a JSON Schema object.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.LLM.ILLMClient">
+            <summary>
+            Unified interface for LLM clients.
+            Supports OpenAI, Ollama, LM Studio and other backends.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.ChatAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Sends a chat request and returns the complete response.
+            </summary>
+            <param name="prompt">The user's input prompt.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>The model's generated response text.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <summary>
+            Sends a chat request with conversation history.
+            </summary>
+            <param name="messages">The conversation history.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>The model's generated response text.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <summary>
+            Sends a chat request with options (tools, json mode, etc).
+            </summary>
+            <param name="messages">The conversation history.</param>
+            <param name="options">The chat options.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>The model's generated response text.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.ChatStreamAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Streams a chat response token by token.
+            </summary>
+            <param name="prompt">The user's input prompt.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>An async enumerable of response chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <summary>
+            Streams a chat response with conversation history.
+            </summary>
+            <param name="messages">The conversation history.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>An async enumerable of response chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <summary>
+            Streams a chat response with options.
+            </summary>
+            <param name="messages">The conversation history.</param>
+            <param name="options">The chat options.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>An async enumerable of response chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.EmbeddingAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Generates an embedding vector for the given text.
+            </summary>
+            <param name="text">The text to generate embeddings for.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>The embedding vector as a float array.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.ILLMClient.EmbeddingBatchAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Generates embedding vectors for multiple texts.
+            </summary>
+            <param name="texts">The texts to generate embeddings for.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A list of embedding vectors.</returns>
+        </member>
+        <member name="T:SharpAIKit.LLM.LLMClientFactory">
+            <summary>
+            Factory for creating LLM client instances.
+            Core principle: Most LLM APIs are OpenAI-compatible, just change URL and API key!
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.Create(SharpAIKit.Common.LLMProviderType,SharpAIKit.Common.LLMOptions,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates an LLM client based on the provider type.
+            </summary>
+            <summary>
+            Creates an LLM client based on the provider type.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.Create(System.String,System.String,System.String,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates a client for any OpenAI-compatible API.
+            Just provide your API key, base URL, and model name!
+            </summary>
+            <param name="apiKey">Your API key.</param>
+            <param name="baseUrl">The API base URL (e.g., https://api.openai.com/v1).</param>
+            <param name="model">The model name.</param>
+            <example>
+            var openai = LLMClientFactory.Create("sk-xxx", "https://api.openai.com/v1", "gpt-4o");
+            var deepseek = LLMClientFactory.Create("sk-xxx", "https://api.deepseek.com/v1", "deepseek-chat");
+            var qwen = LLMClientFactory.Create("sk-xxx", "https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-turbo");
+            </example>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateOpenAI(System.String,System.String)">
+            <summary>OpenAI (GPT-4o, o1, o3, etc.)</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateDeepSeek(System.String,System.String)">
+            <summary>DeepSeek (DeepSeek-V3, R1, Coder)</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateQwen(System.String,System.String)">
+            <summary>Qwen/Tongyi</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateMistral(System.String,System.String)">
+            <summary>Mistral AI</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateYi(System.String,System.String)">
+            <summary>Yi (01.AI)</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateGroq(System.String,System.String)">
+            <summary>Groq (Ultra-fast Inference)</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateMoonshot(System.String,System.String)">
+            <summary>Moonshot/Kimi</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateZhipu(System.String,System.String)">
+            <summary>Zhipu GLM</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateBaichuan(System.String,System.String)">
+            <summary>Baichuan</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateTogether(System.String,System.String)">
+            <summary>Together AI</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateLMStudio(System.String,System.String)">
+            <summary>LM Studio (Local)</summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.LLMClientFactory.CreateOllama(System.String,System.String)">
+            <summary>
+            Creates an Ollama client for local models.
+            Supports: Llama, Qwen, Phi, Mistral, Gemma, DeepSeek, Yi, etc.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.LLM.OllamaClient">
+            <summary>
+            Ollama local service client implementation.
+            Default connection: http://localhost:11434
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.#ctor(System.Net.Http.HttpClient,SharpAIKit.Common.LLMOptions,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates a new Ollama client instance.
+            </summary>
+            <param name="httpClient">HTTP client to use.</param>
+            <param name="options">Configuration options.</param>
+            <param name="logger">Logger instance.</param>
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.ChatAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.ChatStreamAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.ParseStreamChunk(System.String)">
+            <summary>
+            Parses an Ollama streaming response chunk.
+            </summary>
+            <param name="line">The response line to parse.</param>
+            <returns>The extracted content, or null if not applicable.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.OllamaClient.EmbeddingAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:SharpAIKit.LLM.OpenAIClient">
+            <summary>
+            OpenAI API client implementation.
+            Supports Chat Completion and Embedding APIs.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.#ctor(System.Net.Http.HttpClient,SharpAIKit.Common.LLMOptions,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates a new OpenAI client instance.
+            </summary>
+            <param name="httpClient">HTTP client with pre-configured Authorization header.</param>
+            <param name="options">Configuration options.</param>
+            <param name="logger">Logger instance.</param>
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.ChatAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.ChatAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.ChatStreamAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.ChatStreamAsync(System.Collections.Generic.IEnumerable{SharpAIKit.Common.ChatMessage},SharpAIKit.LLM.ChatOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.ParseStreamChunk(System.String)">
+            <summary>
+            Parses a Server-Sent Events (SSE) data chunk.
+            </summary>
+            <param name="line">The SSE line to parse.</param>
+            <returns>The extracted content, or null if not applicable.</returns>
+        </member>
+        <member name="M:SharpAIKit.LLM.OpenAIClient.EmbeddingAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:SharpAIKit.Memory.BufferMemory">
+            <summary>
+            Simple buffer memory that stores the last N messages.
+            This is the most basic memory implementation.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.BufferMemory.MaxMessages">
+            <summary>
+            Gets or sets the maximum number of messages to keep.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.BufferMemory.HumanPrefix">
+            <summary>
+            Gets or sets the human prefix for formatting.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.BufferMemory.AiPrefix">
+            <summary>
+            Gets or sets the AI prefix for formatting.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.BufferMemory.AddMessageAsync(SharpAIKit.Common.ChatMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.BufferMemory.AddExchangeAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.BufferMemory.GetMessagesAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.BufferMemory.GetContextStringAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.BufferMemory.ClearAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.BufferMemory.GetCountAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Memory.WindowBufferMemory">
+            <summary>
+            Window buffer memory that keeps the last N exchanges (user + assistant pairs).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.WindowBufferMemory.WindowSize">
+            <summary>
+            Gets or sets the number of conversation turns (exchanges) to keep.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.WindowBufferMemory.AddMessageAsync(SharpAIKit.Common.ChatMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.WindowBufferMemory.AddExchangeAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.WindowBufferMemory.GetMessagesAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.WindowBufferMemory.GetContextStringAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.WindowBufferMemory.ClearAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.WindowBufferMemory.GetCountAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Memory.SummaryMemory">
+            <summary>
+            Summary memory that summarizes older conversations.
+            Uses an LLM to create summaries when the conversation exceeds a threshold.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.SummaryMemory.RecentMessagesCount">
+            <summary>
+            Gets or sets the number of recent messages to keep in full.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.SummaryMemory.SummarizeThreshold">
+            <summary>
+            Gets or sets the threshold at which to create a summary.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.SummaryMemory.SummaryPrompt">
+            <summary>
+            Gets or sets the summary prompt template.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.SummaryMemory.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new summary memory.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.SummaryMemory.AddMessageAsync(SharpAIKit.Common.ChatMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.SummaryMemory.AddExchangeAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.SummaryMemory.GetMessagesAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.SummaryMemory.GetContextStringAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.SummaryMemory.ClearAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.SummaryMemory.GetCountAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Memory.IMemory">
+            <summary>
+            Interface for conversation memory systems.
+            Memory stores and retrieves conversation history for context management.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.IMemory.AddMessageAsync(SharpAIKit.Common.ChatMessage)">
+            <summary>
+            Adds a message to memory.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.IMemory.AddExchangeAsync(System.String,System.String)">
+            <summary>
+            Adds a user-assistant exchange to memory.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.IMemory.GetMessagesAsync(System.String)">
+            <summary>
+            Gets the relevant messages for a query.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.IMemory.GetContextStringAsync(System.String)">
+            <summary>
+            Gets the memory as a formatted string for prompt injection.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.IMemory.ClearAsync">
+            <summary>
+            Clears all messages from memory.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.IMemory.GetCountAsync">
+            <summary>
+            Gets the total number of messages in memory.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Memory.MemoryVariable">
+            <summary>
+            Memory variable that can be injected into prompts.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.MemoryVariable.Name">
+            <summary>
+            Gets or sets the variable name.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.MemoryVariable.Memory">
+            <summary>
+            Gets or sets the memory instance.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Memory.VectorMemory">
+            <summary>
+            Vector-based memory that retrieves relevant past conversations using semantic search.
+            This is useful for long conversations where you want to recall relevant context.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.VectorMemory.TopK">
+            <summary>
+            Gets or sets the number of relevant messages to retrieve.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.VectorMemory.RecentMessagesToAlwaysInclude">
+            <summary>
+            Gets or sets whether to include recent messages regardless of relevance.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.VectorMemory.#ctor(SharpAIKit.LLM.ILLMClient,SharpAIKit.RAG.IVectorStore)">
+            <summary>
+            Creates a new vector memory.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.VectorMemory.AddMessageAsync(SharpAIKit.Common.ChatMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.VectorMemory.AddExchangeAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.VectorMemory.GetMessagesAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.VectorMemory.GetContextStringAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.VectorMemory.ClearAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.VectorMemory.GetCountAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Memory.EntityMemory">
+            <summary>
+            Entity memory that extracts and tracks entities mentioned in conversations.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.EntityMemory.RecentMessagesCount">
+            <summary>
+            Gets or sets the number of recent messages to keep.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Memory.EntityMemory.EntityExtractionPrompt">
+            <summary>
+            Gets or sets the entity extraction prompt.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new entity memory.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.AddMessageAsync(SharpAIKit.Common.ChatMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.AddExchangeAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.GetMessagesAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.GetContextStringAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.ClearAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.GetCountAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Memory.EntityMemory.GetEntities">
+            <summary>
+            Gets all tracked entities.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.MultiModal.ContentPart">
+            <summary>
+            Represents a content part in a multimodal message.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.ContentPart.Type">
+            <summary>
+            Gets the content type.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.ContentPart.ToApiRepresentation">
+            <summary>
+            Converts to the API representation.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.MultiModal.TextContent">
+            <summary>
+            Text content part.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.TextContent.Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.TextContent.Text">
+            <summary>
+            Gets or sets the text content.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.TextContent.#ctor(System.String)">
+            <summary>
+            Creates a new text content.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.TextContent.ToApiRepresentation">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.MultiModal.ImageContent">
+            <summary>
+            Image content part.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.ImageContent.Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.ImageContent.Url">
+            <summary>
+            Gets or sets the image URL or base64 data.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.ImageContent.Detail">
+            <summary>
+            Gets or sets the detail level (auto, low, high).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.ImageContent.FromUrl(System.String,System.String)">
+            <summary>
+            Creates image content from a URL.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.ImageContent.FromFile(System.String,System.String)">
+            <summary>
+            Creates image content from a local file.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.ImageContent.FromBytes(System.Byte[],System.String,System.String)">
+            <summary>
+            Creates image content from bytes.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.ImageContent.ToApiRepresentation">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.MultiModal.MultiModalMessage">
+            <summary>
+            A multimodal chat message that can contain text and images.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.MultiModalMessage.Role">
+            <summary>
+            Gets or sets the role.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.MultiModal.MultiModalMessage.Content">
+            <summary>
+            Gets or sets the content parts.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessage.User(SharpAIKit.MultiModal.ContentPart[])">
+            <summary>
+            Creates a user message.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessage.User(System.String,System.String[])">
+            <summary>
+            Creates a user message with text and images.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessage.AddText(System.String)">
+            <summary>
+            Adds text content.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessage.AddImageUrl(System.String,System.String)">
+            <summary>
+            Adds image content from URL.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessage.AddImageFile(System.String,System.String)">
+            <summary>
+            Adds image content from file.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessage.ToApiRepresentation">
+            <summary>
+            Converts to API representation.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.MultiModal.MultiModalMessageBuilder">
+            <summary>
+            Builder for creating multimodal messages fluently.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessageBuilder.WithRole(System.String)">
+            <summary>
+            Sets the role.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessageBuilder.AddText(System.String)">
+            <summary>
+            Adds text.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessageBuilder.AddImage(System.String,System.String)">
+            <summary>
+            Adds an image from URL.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessageBuilder.AddImageFile(System.String,System.String)">
+            <summary>
+            Adds an image from file.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessageBuilder.AddImageBytes(System.Byte[],System.String,System.String)">
+            <summary>
+            Adds an image from bytes.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalMessageBuilder.Build">
+            <summary>
+            Builds the message.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.MultiModal.MultiModalExtensions">
+            <summary>
+            Extension methods for multimodal support.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalExtensions.CreateMultiModalMessage">
+            <summary>
+            Creates a multimodal message builder.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalExtensions.CreateVisionMessage(System.String,System.String)">
+            <summary>
+            Creates a simple vision message with text and one image.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.MultiModal.MultiModalExtensions.CreateVisionMessageFromFile(System.String,System.String)">
+            <summary>
+            Creates a vision message from a local image file.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Optimizer.MetricFunction">
+            <summary>
+            Represents a metric for evaluating prompt performance.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Optimizer.TrainingExample">
+            <summary>
+            Represents a training example.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.TrainingExample.Input">
+            <summary>
+            Gets or sets the input.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.TrainingExample.ExpectedOutput">
+            <summary>
+            Gets or sets the expected output.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.TrainingExample.Metadata">
+            <summary>
+            Gets or sets optional metadata.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Optimizer.OptimizationResult">
+            <summary>
+            Result of prompt optimization.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationResult.OptimizedPrompt">
+            <summary>
+            Gets or sets the optimized prompt.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationResult.BestScore">
+            <summary>
+            Gets or sets the best score achieved.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationResult.Iterations">
+            <summary>
+            Gets or sets the number of iterations.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationResult.History">
+            <summary>
+            Gets or sets the optimization history.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Optimizer.OptimizationStep">
+            <summary>
+            Represents a single optimization step.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationStep.Iteration">
+            <summary>
+            Gets or sets the iteration number.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationStep.Prompt">
+            <summary>
+            Gets or sets the prompt used.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationStep.Score">
+            <summary>
+            Gets or sets the average score.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.OptimizationStep.ExampleScores">
+            <summary>
+            Gets or sets the individual scores for each example.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Optimizer.DSPyOptimizer">
+            <summary>
+            DSPy-style automatic prompt optimizer.
+            Automatically improves prompts through iterative optimization based on metrics.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.DSPyOptimizer.MaxIterations">
+            <summary>
+            Gets or sets the maximum number of optimization iterations.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.DSPyOptimizer.TargetScore">
+            <summary>
+            Gets or sets the target score threshold (stops when reached).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.DSPyOptimizer.FewShotExamples">
+            <summary>
+            Gets or sets the number of few-shot examples to include.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.DSPyOptimizer.UseFewShot">
+            <summary>
+            Gets or sets whether to use few-shot learning.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Optimizer.DSPyOptimizer.#ctor(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Creates a new DSPy optimizer.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Optimizer.DSPyOptimizer.AddExample(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Adds a training example.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Optimizer.DSPyOptimizer.SetMetric(SharpAIKit.Optimizer.MetricFunction)">
+            <summary>
+            Sets the metric function for evaluation.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Optimizer.DSPyOptimizer.OptimizeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Optimizes a prompt template.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Optimizer.Metrics">
+            <summary>
+            Predefined metric functions.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.Metrics.ExactMatch">
+            <summary>
+            Exact match metric (1.0 if exact match, 0.0 otherwise).
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Optimizer.Metrics.Contains">
+            <summary>
+            Contains metric (1.0 if output contains expected, 0.0 otherwise).
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Optimizer.Metrics.SemanticSimilarity(SharpAIKit.LLM.ILLMClient)">
+            <summary>
+            Semantic similarity metric using embedding cosine similarity.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Optimizer.Metrics.Custom(System.Func{System.String,System.String,System.String,System.Threading.Tasks.Task{System.Double}})">
+            <summary>
+            Custom metric builder.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Output.IOutputParser`1">
+            <summary>
+            Interface for parsing LLM output into structured formats.
+            </summary>
+            <typeparam name="T">The output type.</typeparam>
+        </member>
+        <member name="M:SharpAIKit.Output.IOutputParser`1.Parse(System.String)">
+            <summary>
+            Parses the LLM output string into the target type.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.IOutputParser`1.GetFormatInstructions">
+            <summary>
+            Gets format instructions to include in the prompt.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Output.OutputParserBase`1">
+            <summary>
+            Base class for output parsers that can be used as chain components.
+            </summary>
+            <typeparam name="T">The output type.</typeparam>
+        </member>
+        <member name="P:SharpAIKit.Output.OutputParserBase`1.InputKey">
+            <summary>
+            Gets or sets the input key to read from context.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Output.OutputParserBase`1.OutputKey">
+            <summary>
+            Gets or sets the output key to write parsed result.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.OutputParserBase`1.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.OutputParserBase`1.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.OutputParserBase`1.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Output.JsonOutputParser`1">
+            <summary>
+            Parses JSON output into a strongly-typed object.
+            </summary>
+            <typeparam name="T">The target type.</typeparam>
+        </member>
+        <member name="M:SharpAIKit.Output.JsonOutputParser`1.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.JsonOutputParser`1.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.JsonOutputParser`1.MyRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>```(?:json)?\\s*([\\s\\S]*?)```</code><br/>
+            Options:<br/>
+            <code>RegexOptions.IgnoreCase</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match the string "```".<br/>
+            ○ Optional (greedy).<br/>
+                ○ Match a character in the set [Jj].<br/>
+                ○ Match a character in the set [Ss].<br/>
+                ○ Match a character in the set [Oo].<br/>
+                ○ Match a character in the set [Nn].<br/>
+            ○ Match a whitespace character greedily any number of times.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match the string "```".<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:SharpAIKit.Output.CommaSeparatedListParser">
+            <summary>
+            Parses comma-separated values into a list.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.CommaSeparatedListParser.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.CommaSeparatedListParser.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Output.NumberedListParser">
+            <summary>
+            Parses numbered list output.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.NumberedListParser.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.NumberedListParser.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.NumberedListParser.MyRegex1">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\d+[.)] (.+)$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Multiline</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of a line.<br/>
+            ○ Match a Unicode digit atomically at least once.<br/>
+            ○ Match a character in the set [).].<br/>
+            ○ Match ' '.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' greedily at least once.<br/>
+            ○ Match if at the end of a line.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:SharpAIKit.Output.BooleanParser">
+            <summary>
+            Parses boolean yes/no responses.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.BooleanParser.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.BooleanParser.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.BooleanParser.MyRegex2">
+            <remarks>
+            Pattern:<br/>
+            <code>^(yes|true|correct|affirmative|1)\\.?$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match with 5 alternative expressions.<br/>
+                    ○ Match the string "yes".<br/>
+                    ○ Match the string "true".<br/>
+                    ○ Match the string "correct".<br/>
+                    ○ Match the string "affirmative".<br/>
+                    ○ Match '1'.<br/>
+            ○ Match '.' atomically, optionally.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:SharpAIKit.Output.BooleanParser.MyRegex3">
+            <remarks>
+            Pattern:<br/>
+            <code>^(no|false|incorrect|negative|0)\\.?$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match with 5 alternative expressions.<br/>
+                    ○ Match the string "no".<br/>
+                    ○ Match the string "false".<br/>
+                    ○ Match the string "incorrect".<br/>
+                    ○ Match the string "negative".<br/>
+                    ○ Match '0'.<br/>
+            ○ Match '.' atomically, optionally.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:SharpAIKit.Output.RegexParser">
+            <summary>
+            Parses structured output with specific fields using regex.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.RegexParser.#ctor(System.String)">
+            <summary>
+            Creates a new regex parser.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.RegexParser.AddField(System.String,System.String)">
+            <summary>
+            Adds a field pattern.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.RegexParser.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.RegexParser.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Output.XMLTagParser">
+            <summary>
+            Extracts specific XML-like tags from output.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.XMLTagParser.#ctor(System.String[])">
+            <summary>
+            Creates a new XML tag parser.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.XMLTagParser.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.XMLTagParser.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.Output.KeyValueParser">
+            <summary>
+            Parses key-value pairs from output.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Output.KeyValueParser.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.KeyValueParser.GetFormatInstructions">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Output.KeyValueParser.MyRegex4">
+            <remarks>
+            Pattern:<br/>
+            <code>^(.+?):\\s*(.+)$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Multiline</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of a line.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily at least once.<br/>
+            ○ Match ':'.<br/>
+            ○ Match a whitespace character greedily any number of times.<br/>
+            ○ 2nd capture group.<br/>
+                ○ Match a character other than '\n' greedily at least once.<br/>
+            ○ Match if at the end of a line.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:SharpAIKit.Prompt.PromptTemplate">
+            <summary>
+            A powerful prompt template system with variable substitution and composition.
+            Supports {variable} syntax and advanced features like conditional sections.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Prompt.PromptTemplate.InputVariables">
+            <summary>
+            Gets the input variables expected by this template.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.Prompt.PromptTemplate.OutputKey">
+            <summary>
+            Gets or sets the output key for the formatted prompt.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.#ctor(System.String)">
+            <summary>
+            Creates a new prompt template.
+            </summary>
+            <param name="template">The template string with {variable} placeholders.</param>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.FromTemplate(System.String)">
+            <summary>
+            Creates a prompt template from a template string.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.WithPartial(System.String,System.Object)">
+            <summary>
+            Sets a partial variable that will always be substituted.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.WithPartial(System.String,System.Func{System.Object})">
+            <summary>
+            Sets a partial variable from a function.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.Format(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Formats the template with the given variables.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.Format(System.ValueTuple{System.String,System.Object}[])">
+            <summary>
+            Formats the template with named arguments.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Prompt.PromptTemplate.MyRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>\\{(\\w+)\\}</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '{'.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a word character atomically at least once.<br/>
+            ○ Match '}'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:SharpAIKit.Prompt.ChatPromptTemplate">
+            <summary>
+            A chat prompt template that generates structured messages.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.ChatPromptTemplate.AddSystemMessage(System.String)">
+            <summary>
+            Adds a system message template.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.ChatPromptTemplate.AddUserMessage(System.String)">
+            <summary>
+            Adds a user message template.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.ChatPromptTemplate.AddAssistantMessage(System.String)">
+            <summary>
+            Adds an assistant message template.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.ChatPromptTemplate.AddHistoryPlaceholder(System.String)">
+            <summary>
+            Adds a placeholder for conversation history.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.ChatPromptTemplate.FormatMessages(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Formats the template to produce chat messages.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.ChatPromptTemplate.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharpAIKit.Prompt.ChatPromptTemplate.FromMessages(System.ValueTuple{System.String,System.String}[])">
+            <summary>
+            Creates a simple chat prompt template.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.Prompt.FewShotPromptTemplate">
+            <summary>
+            Few-shot prompt template that includes examples.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.FewShotPromptTemplate.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new few-shot prompt template.
+            </summary>
+            <param name="prefix">Text before the examples.</param>
+            <param name="suffix">Text after the examples (usually contains the input placeholder).</param>
+            <param name="exampleTemplate">Template for each example.</param>
+            <param name="exampleSeparator">Separator between examples.</param>
+        </member>
+        <member name="M:SharpAIKit.Prompt.FewShotPromptTemplate.AddExample(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Adds an example.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.FewShotPromptTemplate.AddExample(System.String,System.String)">
+            <summary>
+            Adds an example with input/output.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.FewShotPromptTemplate.Format(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Formats the few-shot prompt.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.Prompt.FewShotPromptTemplate.ExecuteAsync(SharpAIKit.Chain.ChainContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharpAIKit.RAG.FileVectorStore">
+            <summary>
+            A simple file-based vector store for persistence.
+            Stores documents and embeddings in a local JSON file.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.#ctor(System.String)">
+            <summary>
+            Creates a new file vector store.
+            </summary>
+            <param name="filePath">The path to the JSON file.</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.LoadAsync">
+            <summary>
+            Loads the index from disk.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.SaveAsync">
+            <summary>
+            Saves the index to disk.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.AddAsync(SharpAIKit.RAG.VectorDocument)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.AddRangeAsync(System.Collections.Generic.IEnumerable{SharpAIKit.RAG.VectorDocument})">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.SearchAsync(System.Single[],System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.DeleteAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.ClearAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.FileVectorStore.CountAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:SharpAIKit.RAG.VectorDocument">
+            <summary>
+            Represents a document with its embedding vector.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.VectorDocument.Id">
+            <summary>
+            Gets or sets the unique document identifier.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.VectorDocument.Content">
+            <summary>
+            Gets or sets the original text content.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.VectorDocument.Embedding">
+            <summary>
+            Gets or sets the embedding vector.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.VectorDocument.Metadata">
+            <summary>
+            Gets or sets the document metadata.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.RAG.SearchResult">
+            <summary>
+            Represents a search result with similarity score.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.SearchResult.Document">
+            <summary>
+            Gets or sets the matched document.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.SearchResult.Score">
+            <summary>
+            Gets or sets the similarity score.
+            </summary>
+        </member>
+        <member name="T:SharpAIKit.RAG.IVectorStore">
+            <summary>
+            Interface for vector storage backends.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.IVectorStore.AddAsync(SharpAIKit.RAG.VectorDocument)">
+            <summary>
+            Adds a document to the store.
+            </summary>
+            <param name="document">The document to add.</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.IVectorStore.AddRangeAsync(System.Collections.Generic.IEnumerable{SharpAIKit.RAG.VectorDocument})">
+            <summary>
+            Adds multiple documents to the store.
+            </summary>
+            <param name="documents">The documents to add.</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.IVectorStore.SearchAsync(System.Single[],System.Int32)">
+            <summary>
+            Searches for similar documents.
+            </summary>
+            <param name="queryEmbedding">The query embedding vector.</param>
+            <param name="topK">Number of results to return.</param>
+            <returns>A list of search results ordered by similarity.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.IVectorStore.DeleteAsync(System.String)">
+            <summary>
+            Deletes a document by its ID.
+            </summary>
+            <param name="documentId">The document ID to delete.</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.IVectorStore.ClearAsync">
+            <summary>
+            Clears all documents from the store.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.IVectorStore.CountAsync">
+            <summary>
+            Gets the total number of documents in the store.
+            </summary>
+            <returns>The document count.</returns>
+        </member>
+        <member name="T:SharpAIKit.RAG.MemoryVectorStore">
+            <summary>
+            In-memory vector store implementation.
+            Suitable for small-scale data and rapid prototyping.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.MemoryVectorStore.SimilarityFunction">
+            <summary>
+            Gets or sets the similarity function to use.
+            Default is cosine similarity.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.MemoryVectorStore.AddAsync(SharpAIKit.RAG.VectorDocument)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.MemoryVectorStore.AddRangeAsync(System.Collections.Generic.IEnumerable{SharpAIKit.RAG.VectorDocument})">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.MemoryVectorStore.SearchAsync(System.Single[],System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.MemoryVectorStore.DeleteAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.MemoryVectorStore.ClearAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:SharpAIKit.RAG.MemoryVectorStore.CountAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:SharpAIKit.RAG.RagEngine">
+            <summary>
+            Local mini RAG (Retrieval-Augmented Generation) engine.
+            Provides document indexing and intelligent Q and A capabilities.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.RagEngine.TopK">
+            <summary>
+            Gets or sets the number of documents to retrieve for context.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.RagEngine.SystemPromptTemplate">
+            <summary>
+            Gets or sets the system prompt template.
+            Use {context} as placeholder for the retrieved context.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.#ctor(SharpAIKit.LLM.ILLMClient,SharpAIKit.RAG.IVectorStore,SharpAIKit.RAG.TextSplitter)">
+            <summary>
+            Creates a new RAG engine instance.
+            </summary>
+            <param name="llmClient">The LLM client for embeddings and generation.</param>
+            <param name="vectorStore">The vector store (optional, defaults to in-memory store).</param>
+            <param name="textSplitter">The text splitter (optional).</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.IndexContentAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Indexes document content.
+            </summary>
+            <param name="content">The document content to index.</param>
+            <param name="metadata">Optional metadata for the document.</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.IndexDocumentAsync(System.String)">
+            <summary>
+            Indexes a document from a file.
+            </summary>
+            <param name="filePath">Path to the file to index.</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.IndexDirectoryAsync(System.String,System.String)">
+            <summary>
+            Indexes all text files in a directory.
+            </summary>
+            <param name="directoryPath">Path to the directory.</param>
+            <param name="searchPattern">File search pattern (default: *.txt).</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.AskAsync(System.String)">
+            <summary>
+            Answers a question using RAG.
+            </summary>
+            <param name="question">The user's question.</param>
+            <returns>The AI-generated answer.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.AskStreamAsync(System.String)">
+            <summary>
+            Answers a question using RAG with streaming response.
+            </summary>
+            <param name="question">The user's question.</param>
+            <returns>An async enumerable of response chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.RetrieveAsync(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Retrieves relevant documents without generating an answer.
+            </summary>
+            <param name="query">The search query.</param>
+            <param name="topK">Number of results to return (optional, uses default if not specified).</param>
+            <returns>A list of search results.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.ClearIndexAsync">
+            <summary>
+            Clears all indexed documents.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.RagEngine.GetDocumentCountAsync">
+            <summary>
+            Gets the count of indexed documents.
+            </summary>
+            <returns>The number of indexed document chunks.</returns>
+        </member>
+        <member name="T:SharpAIKit.RAG.Similarity">
+            <summary>
+            Utility class for calculating vector similarity metrics.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.Similarity.Cosine(System.Single[],System.Single[])">
+            <summary>
+            Calculates the cosine similarity between two vectors.
+            </summary>
+            <param name="vec1">First vector.</param>
+            <param name="vec2">Second vector.</param>
+            <returns>Similarity value between -1 and 1.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.Similarity.DotProduct(System.Single[],System.Single[])">
+            <summary>
+            Calculates the dot product of two vectors.
+            </summary>
+            <param name="vec1">First vector.</param>
+            <param name="vec2">Second vector.</param>
+            <returns>The dot product value.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.Similarity.Euclidean(System.Single[],System.Single[])">
+            <summary>
+            Calculates the Euclidean distance between two vectors.
+            </summary>
+            <param name="vec1">First vector.</param>
+            <param name="vec2">Second vector.</param>
+            <returns>The Euclidean distance.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.Similarity.EuclideanSimilarity(System.Single[],System.Single[])">
+            <summary>
+            Calculates Euclidean similarity (normalized inverse of distance).
+            </summary>
+            <param name="vec1">First vector.</param>
+            <param name="vec2">Second vector.</param>
+            <returns>Similarity value between 0 and 1.</returns>
+        </member>
+        <member name="T:SharpAIKit.RAG.TextSplitter">
+            <summary>
+            Text splitter for chunking documents.
+            Supports splitting by sentences, fixed character count, or paragraphs.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.TextSplitter.ChunkSize">
+            <summary>
+            Gets or sets the maximum number of characters per chunk.
+            </summary>
+        </member>
+        <member name="P:SharpAIKit.RAG.TextSplitter.ChunkOverlap">
+            <summary>
+            Gets or sets the number of overlapping characters between chunks.
+            </summary>
+        </member>
+        <member name="F:SharpAIKit.RAG.TextSplitter.SentenceRegex">
+            <summary>
+            Regex pattern for sentence boundaries.
+            </summary>
+        </member>
+        <member name="M:SharpAIKit.RAG.TextSplitter.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new text splitter instance.
+            </summary>
+            <param name="chunkSize">Maximum chunk size in characters.</param>
+            <param name="chunkOverlap">Overlap size in characters.</param>
+        </member>
+        <member name="M:SharpAIKit.RAG.TextSplitter.SplitByCharacters(System.String)">
+            <summary>
+            Splits text by fixed character count with overlap.
+            </summary>
+            <param name="text">The text to split.</param>
+            <returns>A list of text chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.TextSplitter.SplitBySentences(System.String)">
+            <summary>
+            Splits text by sentence boundaries.
+            </summary>
+            <param name="text">The text to split.</param>
+            <returns>A list of text chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.TextSplitter.SplitByParagraphs(System.String)">
+            <summary>
+            Splits text by paragraph boundaries.
+            </summary>
+            <param name="text">The text to split.</param>
+            <returns>A list of text chunks.</returns>
+        </member>
+        <member name="M:SharpAIKit.RAG.TextSplitter.SplitByTokens(System.String)">
+            <summary>
+            Splits text by token count approximation (1 token ≈ 4 chars).
+            </summary>
+            <param name="text">The text to split.</param>
+            <returns>A list of text chunks.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the MyRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.MyRegex_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex1_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the MyRegex1 method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.MyRegex1_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex1_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex1_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex1_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex1_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex1_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex1_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex1_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex2_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the MyRegex2 method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.MyRegex2_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex2_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex2_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex2_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex2_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex2_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex2_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex2_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex3_3">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the MyRegex3 method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.MyRegex3_3.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex3_3.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex3_3.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex3_3.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex3_3.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex3_3.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex3_3.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex3_3.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex4_4">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the MyRegex4 method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.MyRegex4_4.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex4_4.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex4_4.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex4_4.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex4_4.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex4_4.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex4_4.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex4_4.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex_5">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the MyRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.MyRegex_5.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_5.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex_5.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_5.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MyRegex_5.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_5.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_5.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MyRegex_5.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IndexOfAnyDigit(System.ReadOnlySpan{System.Char})">
+            <summary>Finds the next index of any character that matches a Unicode digit.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
+            <summary>Determines whether the character is part of the [\w] set.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
+            <summary>Pushes 2 values onto the backtracking stack.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiExceptDigits">
+            <summary>Supports searching for characters in or not in "\0\u0001\u0002\u0003\u0004\u0005\u0006\a\b\t\n\v\f\r\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f !\"#$%&amp;'()*+,-./:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007f".</summary>
+        </member>
+    </members>
+</doc>

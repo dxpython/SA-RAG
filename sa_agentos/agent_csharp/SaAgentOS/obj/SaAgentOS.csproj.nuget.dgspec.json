@@ -1,0 +1,186 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/huidongdezhizhen/Desktop/SA-RAG/sa_agentos/agent_csharp/SaAgentOS/SaAgentOS.csproj": {}
+  },
+  "projects": {
+    "/Users/huidongdezhizhen/Desktop/SA-RAG/sa_agentos/agent_csharp/SaAgentOS/SaAgentOS.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/huidongdezhizhen/Desktop/SA-RAG/sa_agentos/agent_csharp/SaAgentOS/SaAgentOS.csproj",
+        "projectName": "SaAgentOS",
+        "projectPath": "/Users/huidongdezhizhen/Desktop/SA-RAG/sa_agentos/agent_csharp/SaAgentOS/SaAgentOS.csproj",
+        "packagesPath": "/Users/huidongdezhizhen/.nuget/packages/",
+        "outputPath": "/Users/huidongdezhizhen/Desktop/SA-RAG/sa_agentos/agent_csharp/SaAgentOS/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/huidongdezhizhen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/huidongdezhizhen/Desktop/SA-RAG/SharpAIKit/src/SharpAIKit/SharpAIKit.csproj": {
+                "projectPath": "/Users/huidongdezhizhen/Desktop/SA-RAG/SharpAIKit/src/SharpAIKit/SharpAIKit.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Console": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.6.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/huidongdezhizhen/Desktop/SA-RAG/SharpAIKit/src/SharpAIKit/SharpAIKit.csproj": {
+      "version": "0.1.0",
+      "restore": {
+        "projectUniqueName": "/Users/huidongdezhizhen/Desktop/SA-RAG/SharpAIKit/src/SharpAIKit/SharpAIKit.csproj",
+        "projectName": "SharpAIKit",
+        "projectPath": "/Users/huidongdezhizhen/Desktop/SA-RAG/SharpAIKit/src/SharpAIKit/SharpAIKit.csproj",
+        "packagesPath": "/Users/huidongdezhizhen/.nuget/packages/",
+        "outputPath": "/Users/huidongdezhizhen/Desktop/SA-RAG/SharpAIKit/src/SharpAIKit/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/huidongdezhizhen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.CSharp": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "Microsoft.CodeAnalysis.Scripting": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Http.Polly": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
